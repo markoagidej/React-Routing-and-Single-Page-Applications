@@ -26,9 +26,10 @@ class App extends Component {
       <div>
         <NavigationBar />
         <Routes>
-          <Route path='/home' element={<Home />}/>
+          <Route path='/' element={<Home />}/>
           <Route path='/browse' element={<BrowseCharacters onCharacterSelect={this.handleCharacterSelection}/>}/>
-          <Route path='/details/:id' element={<CharacterDetails characterId={selectedID}/>}/>
+          <Route path='/details' element={<CharacterDetails />}/>
+          <Route path='/details/:characterId' element={<CharacterDetails />}/>
           <Route path='/comics' element={<Comics />}/>
         </Routes>
       </div>

@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const BrowseCharacters = ({ onCharacterSelect }) => {
     const publicKey = '10e6807befd8aeb6f15c4e5356806e98';
     const hashKey = '74068a949a4478d79f2be1e5c96470be';
 
+    const navigate = useNavigate();
+
     const [characterList, setChartacterList] = useState([])
-    const [selectedCharacterID, setSelectedCharacterID] = useState(null) 
     
     useEffect(() => {
         async function fetchCharacterList() {
             try {                
                 const response = await axios.get(`https://gateway.marvel.com/v1/public/characters?ts=1&apikey=${publicKey}&hash=${hashKey}`)
-                setChartacterList(response.data.data.results);
+                setChartacterList(await response.data.data.results);
             } catch (error) {
                 console.error("Error fetching characters list:", error);
             }
@@ -21,8 +23,8 @@ const BrowseCharacters = ({ onCharacterSelect }) => {
     }, [])
 
     const selectCharacterID = (id) => {
-        setSelectedCharacterID(id)
         onCharacterSelect(id)
+        navigate(`/details/${id}`)
     }
 
     return (
