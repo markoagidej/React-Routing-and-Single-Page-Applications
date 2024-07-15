@@ -4,7 +4,7 @@ import Home from './components/Home';
 import BrowseCharacters from './components/BrowseCharacters';
 import CharacterDetails from './components/CharacterDetails';
 import Comics from './components/Comics';
-import { useState } from 'react';
+import NavigationBar from './components/NavigationBar';
 import { Component } from 'react';
 
 class App extends Component {
@@ -24,6 +24,7 @@ class App extends Component {
 
     return (
       <div>
+        <NavigationBar />
         <Routes>
           <Route path='/home' element={<Home />}/>
           <Route path='/browse' element={<BrowseCharacters onCharacterSelect={this.handleCharacterSelection}/>}/>
