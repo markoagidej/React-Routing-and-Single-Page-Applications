@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import BrowseCharacters from './components/BrowseCharacters';
+import CharacterDetails from './components/CharacterDetails';
+import { useState } from 'react';
+import { Component } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedID: null
+    };
+  }
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+  handleCharacterSelection = (characterID) => {
+    this.setState({selectedID: characterID})
+  }
+
+  render() {
+    const { selectedID } = this.state
+
+    return (
+      <div className={"row"}>
+        <div className={"column"}>
+          <BrowseCharacters onCharacterSelect={this.handleCharacterSelection}/>
+        </div>
+        <div className={"column"}>
+          {selectedID &&
+            <CharacterDetails characterId={selectedID}/>
+          }
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    )
+  }  
 }
 
 export default App
